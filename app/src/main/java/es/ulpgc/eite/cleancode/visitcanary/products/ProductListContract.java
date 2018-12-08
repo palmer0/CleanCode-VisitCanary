@@ -17,7 +17,6 @@ interface ProductListContract {
 
   interface Model {
 
-    //List<ProductItem> fetchProductListData(CategoryItem category);
     void fetchProductListData(
         CategoryItem category, CatalogRepository.GetProductListCallback callback);
   }

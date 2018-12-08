@@ -15,7 +15,6 @@ interface CategoryListContract {
   }
 
   interface Model {
-    //List<CategoryItem> fetchCategoryListData();
     void fetchCategoryListData(
         CatalogRepository.GetCategoryListCallback callback);
   }

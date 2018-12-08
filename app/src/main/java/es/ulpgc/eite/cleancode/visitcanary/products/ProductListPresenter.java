@@ -40,12 +40,6 @@ public class ProductListPresenter implements ProductListContract.Presenter {
       }
     });
 
-    /*
-    viewModel.products = model.fetchProductListData(viewModel.category);
-
-    view.get().displayProductListData(viewModel);
-    */
-
   }
 
 

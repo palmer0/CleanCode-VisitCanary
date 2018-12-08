@@ -39,12 +39,6 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
       }
     });
 
-    /*
-    viewModel.categories = model.fetchCategoryListData();
-
-    view.get().displayCategoryListData(viewModel);
-    */
-
   }
 
 

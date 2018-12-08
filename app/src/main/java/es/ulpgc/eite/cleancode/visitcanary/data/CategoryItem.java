@@ -23,29 +23,6 @@ public class CategoryItem {
   @SerializedName("products")
   public List<ProductItem> items;
 
-  /*
-  public CategoryItem() {
-
-  }
-
-  public CategoryItem(
-      int id, String content, String details, List<ProductItem> items) {
-    this.id = id;
-    this.content = content;
-    this.details = details;
-    this.items = items;
-  }
-
-
-  public CategoryItem(int id, String content, String details) {
-    this.id = id;
-    this.content = content;
-    this.details = details;
-    items = new ArrayList<>();
-  }
-  */
-
-
   @Override
   public String toString() {
     return content;

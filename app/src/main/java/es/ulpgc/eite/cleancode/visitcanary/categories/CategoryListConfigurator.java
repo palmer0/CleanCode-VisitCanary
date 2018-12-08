@@ -21,7 +21,8 @@ public enum CategoryListConfigurator {
     presenter.view = new WeakReference<CategoryListContract.View>(activity);
     presenter.router = router;
 
-    CategoryListModel model = new CategoryListModel(new WeakReference<>(activity));
+    CategoryListModel model =
+        new CategoryListModel(new WeakReference<>(activity));
     presenter.model = model;
 
     if (activity.presenter == null) {

@@ -29,27 +29,6 @@ public class ProductItem {
   @ColumnInfo(name = "category_id")
   public int categoryId;
 
-  /*
-  public ProductItem() {
-
-  }
-
-
-  public ProductItem(int id, String content, String details, String picture) {
-    this.id = id;
-    this.content = content;
-    this.details = details;
-    this.picture = picture;
-  }
-
-
-  public ProductItem(int id, String content, String details) {
-    this.id = id;
-    this.content = content;
-    this.details = details;
-  }
-  */
-
 
   @Override
   public String toString() {

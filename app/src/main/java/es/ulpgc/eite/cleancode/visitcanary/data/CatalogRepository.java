@@ -30,15 +30,6 @@ public class CatalogRepository {
     void onCatalogDataFetched(boolean error);
   }
 
-  /*
-  public interface FetchCatalogDataCallback {
-    void onCatalogDataFetched();
-  }
-
-  public interface ClearCatalogDataCallback {
-    void onCatalogDataCleared();
-  }
-  */
 
   public interface GetProductListCallback {
     void setProductList(List<ProductItem> products);
@@ -56,6 +47,22 @@ public class CatalogRepository {
     void setCategory(CategoryItem category);
   }
 
+  public interface DeleteCategoryCallback {
+    void onCategoryDeleted();
+  }
+
+  public interface UpdateCategoryCallback {
+    void onCategoryUpdated();
+  }
+
+  public interface DeleteProductCallback {
+    void onProductDeleted();
+  }
+
+  public interface UpdateProductCallback {
+    void onProductUpdated();
+  }
+
   public static final String DB_FILE = "catalog.db";
   public static final String JSON_FILE = "catalog.json";
   public static final String JSON_ROOT = "categories";
@@ -63,27 +70,8 @@ public class CatalogRepository {
   private static CatalogRepository INSTANCE;
 
   private CatalogDatabase database;
-  //private final CategoryDao categoryDao;
-  //private  final ProductDao productDao;
-
-
-  //private final List<CategoryItem> itemList = new ArrayList<>();
-  //private List<CategoryItem> itemList;
-  //private final int COUNT = 20;
-
   private Context appContext;
-  //private boolean catalogLoading;
-  //private boolean catalogLoaded;
 
-  /*
-  public static CatalogRepository getInstance() {
-    if(INSTANCE == null){
-      INSTANCE = new CatalogRepository();
-    }
-
-    return INSTANCE;
-  }
-  */
 
   public static CatalogRepository getInstance(Context context) {
     if(INSTANCE == null){
@@ -93,23 +81,6 @@ public class CatalogRepository {
     return INSTANCE;
   }
 
-  /*
-  private CatalogRepository(Context appContext) {
-    this.appContext = appContext;
-
-    CatalogDatabase database = Room.databaseBuilder(
-        appContext, CatalogDatabase.class, DB_FILE
-    ).build();
-
-    //database.clearAllTables();
-
-    categoryDao = database.categoryDao();
-    productDao = database.productDao();
-
-    //loadCatalogFromJSON(loadJSONFromAsset());
-
-  }
-  */
 
   private CatalogRepository(Context appContext) {
     this.appContext = appContext;
@@ -118,19 +89,159 @@ public class CatalogRepository {
         appContext, CatalogDatabase.class, DB_FILE
     ).build();
 
-    //categoryDao = database.categoryDao();
-    //productDao = database.productDao();
   }
 
 
-  /*
-  private CatalogRepository() {
-    // Add some sample items.
-    for (int index = 1; index <= COUNT; index++) {
-      addCategory(createCategory(index));
-    }
+  public void loadCatalog(
+      final boolean clearFirst, final FetchCatalogDataCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(clearFirst) {
+          database.clearAllTables();
+        }
+
+        boolean error = false;
+        if(getCategoryDao().loadCategories().size() == 0 ) {
+          error = !loadCatalogFromJSON(loadJSONFromAsset());
+        }
+
+        if(callback != null) {
+          callback.onCatalogDataFetched(error);
+        }
+      }
+    });
+
   }
-  */
+
+  public void getProductList(
+      final CategoryItem category, final GetProductListCallback callback) {
+
+    getProductList(category.id, callback);
+  }
+
+
+  public void getProductList(
+      final int categoryId, final GetProductListCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          callback.setProductList(getProductDao().loadProducts(categoryId));
+        }
+      }
+    });
+
+  }
+
+
+  public void getProduct(final int id, final GetProductCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          callback.setProduct(getProductDao().loadProduct(id));
+        }
+      }
+    });
+  }
+
+  public void getCategory(final int id, final GetCategoryCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          callback.setCategory(getCategoryDao().loadCategory(id));
+        }
+      }
+    });
+
+  }
+
+  public void getCategoryList(final GetCategoryListCallback callback) {
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          callback.setCategoryList(getCategoryDao().loadCategories());
+        }
+      }
+    });
+
+  }
+
+
+  public void deleteProduct(
+      final ProductItem product, final DeleteProductCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          getProductDao().deleteProduct(product);
+          callback.onProductDeleted();
+        }
+      }
+    });
+  }
+
+  public void updateProduct(
+      final ProductItem product, final UpdateProductCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          getProductDao().updateProduct(product);
+          callback.onProductUpdated();
+        }
+      }
+    });
+  }
+
+
+
+  public void deleteCategory(
+      final CategoryItem category, final DeleteCategoryCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          getCategoryDao().deleteCategory(category);
+          callback.onCategoryDeleted();
+        }
+      }
+    });
+  }
+
+  public void updateCategory(
+      final CategoryItem category, final UpdateCategoryCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null) {
+          getCategoryDao().updateCategory(category);
+          callback.onCategoryUpdated();
+        }
+      }
+    });
+  }
+
 
   private CategoryDao getCategoryDao() {
     return database.categoryDao();
@@ -139,70 +250,6 @@ public class CatalogRepository {
   private ProductDao getProductDao() {
     return database.productDao();
   }
-
-//  private void loadCatalogFromJSON(String json) {
-//
-//    GsonBuilder gsonBuilder = new GsonBuilder();
-//    Gson gson = gsonBuilder.create();
-//
-//    try {
-//
-//      JSONObject jsonObject = new JSONObject(json);
-//      JSONArray jsonArray = jsonObject.getJSONArray(JSON_ROOT);
-//
-//      if (jsonArray.length() > 0) {
-//        /*
-//        itemList = Arrays.asList(
-//            gson.fromJson(jsonArray.toString(), CategoryItem[].class)
-//        );
-//        */
-//
-//        final List<CategoryItem> categories = Arrays.asList(
-//            gson.fromJson(jsonArray.toString(), CategoryItem[].class)
-//        );
-//
-//        for (CategoryItem category: categories) {
-//          //categoryDao.insertCategory(category);
-//          getCategoryDao().insertCategory(category);
-//        }
-//
-//        for (CategoryItem category: categories) {
-//          for (ProductItem product: category.items) {
-//            product.categoryId = category.id;
-//            //productDao.insertProduct(product);
-//            getProductDao().insertProduct(product);
-//          }
-//        }
-//
-//
-//        /*
-//        AsyncTask.execute(new Runnable() {
-//
-//          @Override
-//          public void run() {
-//            for (CategoryItem category: categories) {
-//              categoryDao.insertCategory(category);
-//            }
-//
-//            for (CategoryItem category: categories) {
-//              for (ProductItem product: category.items) {
-//                product.categoryId = category.id;
-//                productDao.insertProduct(product);
-//              }
-//            }
-//
-//          }
-//        });
-//        */
-//
-//      }
-//
-//    } catch (JSONException error) {
-//      Log.e(TAG, "error: " + error);
-//      //itemList = new ArrayList<>();
-//    }
-//
-//  }
 
 
   private boolean loadCatalogFromJSON(String json) {
@@ -223,14 +270,12 @@ public class CatalogRepository {
         );
 
         for (CategoryItem category: categories) {
-          //categoryDao.insertCategory(category);
           getCategoryDao().insertCategory(category);
         }
 
         for (CategoryItem category: categories) {
           for (ProductItem product: category.items) {
             product.categoryId = category.id;
-            //productDao.insertProduct(product);
             getProductDao().insertProduct(product);
           }
         }
@@ -265,255 +310,5 @@ public class CatalogRepository {
 
     return json;
   }
-
-  /*
-  public List<ProductItem> getProductList(int categoryId) {
-    return productDao.loadProducts(categoryId);
-  }
-
-  public List<ProductItem> getProductList(CategoryItem category) {
-    return productDao.loadProducts(category.id);
-  }
-
-  public ProductItem getProduct(int id) {
-    return productDao.loadProduct(id);
-  }
-
-  public CategoryItem getCategory(int id) {
-    return categoryDao.loadCategory(id);
-  }
-
-  public List<CategoryItem> getCategoryList() {
-    //return itemList;
-    return categoryDao.loadCategories();
-  }
-  */
-
-
-  /*
-  private void checkCatalogData() {
-    if(catalogLoaded) {
-      return;
-    }
-
-    if (!catalogLoading) {
-      catalogLoading = true;
-
-      database.clearAllTables();
-      if(loadCatalogFromJSON(loadJSONFromAsset())) {
-        catalogLoaded = true;
-      }
-
-      catalogLoading = false;
-    }
-  }
-  */
-
-
-  public void loadCatalog(
-      final boolean clearFirst, final FetchCatalogDataCallback callback) {
-
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        if(clearFirst) {
-          database.clearAllTables();
-        }
-
-        boolean error = false;
-        if(getCategoryDao().loadCategories().size() == 0 ) {
-          error = !loadCatalogFromJSON(loadJSONFromAsset());
-        }
-
-        if(callback != null) {
-          callback.onCatalogDataFetched(error);
-        }
-
-        /*
-        if(callback != null && loadCatalogFromJSON(loadJSONFromAsset())) {
-          callback.onCatalogDataFetched();
-        }
-        */
-
-      }
-    });
-
-  }
-
-  /*
-  public void loadCatalog(final FetchCatalogDataCallback callback) {
-
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        if(callback != null && loadCatalogFromJSON(loadJSONFromAsset())) {
-          callback.onCatalogDataFetched();
-        }
-      }
-    });
-
-  }
-
-  public void clearCatalog(final ClearCatalogDataCallback callback) {
-
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        database.clearAllTables();
-
-        if(callback != null) {
-          callback.onCatalogDataCleared();
-        }
-      }
-    });
-
-  }
-  */
-
-  public void getProductList(
-      final int categoryId, final GetProductListCallback callback) {
-
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        //checkCatalogData();
-
-        if(callback != null) {
-          //callback.setProductList(productDao.loadProducts(categoryId));
-          callback.setProductList(getProductDao().loadProducts(categoryId));
-        }
-      }
-    });
-
-  }
-
-
-  public void getProduct(final int id, final GetProductCallback callback) {
-
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        //checkCatalogData();
-
-        if(callback != null) {
-          //callback.setProduct(productDao.loadProduct(id));
-          callback.setProduct(getProductDao().loadProduct(id));
-        }
-      }
-    });
-  }
-
-  public void getCategory(final int id, final GetCategoryCallback callback) {
-
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        //checkCatalogData();
-
-        if(callback != null) {
-          //callback.setCategory(categoryDao.loadCategory(id));
-          callback.setCategory(getCategoryDao().loadCategory(id));
-        }
-      }
-    });
-
-  }
-
-  public void getCategoryList(final GetCategoryListCallback callback) {
-    AsyncTask.execute(new Runnable() {
-
-      @Override
-      public void run() {
-        //checkCatalogData();
-
-        if(callback != null) {
-          //callback.setCategoryList(categoryDao.loadCategories());
-          callback.setCategoryList(getCategoryDao().loadCategories());
-        }
-      }
-    });
-
-  }
-
-
-  /*
-  public List<ProductItem> getProductList(int id) {
-    for (int index = 1; index <= COUNT; index++) {
-      CategoryItem item = itemList.get(index);
-
-      if(item.id == id) {
-        return item.items;
-      }
-    }
-
-    return new ArrayList<>();
-  }
-  */
-
-  /*
-  private void addCategory(CategoryItem item) {
-    itemList.add(item);
-  }
-
-
-  private void addProduct(List<ProductItem> itemList, ProductItem item) {
-    itemList.add(item);
-  }
-
-
-  private ProductItem createProduct(int id, int position) {
-    String content = "Product " + id + "." + position;
-
-    return new ProductItem(
-        position, content, fetchProductDetails(id, position)
-    );
-
-  }
-
-
-  private CategoryItem createCategory(int position) {
-
-    CategoryItem item = new CategoryItem(
-        position, "Category " + position, fetchCategoryDetails(position)
-    );
-
-
-    for (int index = 1; index <= COUNT; index++) {
-      addProduct(item.items, createProduct(item.id, index));
-    }
-
-    return item;
-  }
-
-
-  private String fetchCategoryDetails(int position) {
-    StringBuilder builder = new StringBuilder();
-    builder.append("Details about Category: ").append(position);
-
-    for (int index = 0; index < position; index++) {
-      builder.append("\nMore details information here.");
-    }
-
-    return builder.toString();
-  }
-
-  private String fetchProductDetails(int id, int position) {
-    String content = "Details about Product:  " + id + "." + position;
-    StringBuilder builder = new StringBuilder();
-    builder.append(content);
-
-    for (int index = 0; index < position; index++) {
-      builder.append("\nMore details information here.");
-    }
-
-    return builder.toString();
-  }
-  */
 
 }

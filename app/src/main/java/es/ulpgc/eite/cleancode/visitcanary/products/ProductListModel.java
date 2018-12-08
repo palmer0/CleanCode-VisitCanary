@@ -17,7 +17,7 @@ public class ProductListModel implements ProductListContract.Model {
 
   public ProductListModel(WeakReference<ProductListActivity> activity) {
     this.activity = activity;
-    //repository = CatalogRepository.getInstance();
+
     repository = CatalogRepository.getInstance(
         activity.get().getApplicationContext()
     );
@@ -29,15 +29,7 @@ public class ProductListModel implements ProductListContract.Model {
       CategoryItem category, CatalogRepository.GetProductListCallback callback) {
 
     Log.e(TAG, "fetchProductListData()");
-    repository.getProductList(category.id, callback);
+    repository.getProductList(category, callback);
   }
-
-  /*
-  @Override
-  public List<ProductItem> fetchProductListData(CategoryItem category) {
-    Log.e(TAG, "fetchProductListData()");
-    return repository.getProductList(category.id);
-  }
-  */
 
 }
