@@ -1,7 +1,9 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
+import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 
 
@@ -27,9 +29,21 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
     */
 
     // call the model
+    model.fetchCategoryListData(new CatalogRepository.GetCategoryListCallback() {
 
+      @Override
+      public void setCategoryList(List<CategoryItem> categories) {
+        viewModel.categories = categories;
+
+        view.get().displayCategoryListData(viewModel);
+      }
+    });
+
+    /*
     viewModel.categories = model.fetchCategoryListData();
+
     view.get().displayCategoryListData(viewModel);
+    */
 
   }
 

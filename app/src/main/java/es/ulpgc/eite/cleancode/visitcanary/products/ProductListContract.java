@@ -1,7 +1,6 @@
 package es.ulpgc.eite.cleancode.visitcanary.products;
 
-import java.util.List;
-
+import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
 
@@ -17,6 +16,9 @@ interface ProductListContract {
   }
 
   interface Model {
-    List<ProductItem> fetchProductListData(CategoryItem category);
+
+    //List<ProductItem> fetchProductListData(CategoryItem category);
+    void fetchProductListData(
+        CategoryItem category, CatalogRepository.GetProductListCallback callback);
   }
 }

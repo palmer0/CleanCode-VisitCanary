@@ -2,13 +2,9 @@ package es.ulpgc.eite.cleancode.visitcanary.categories;
 
 import android.util.Log;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
-import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 
 public class CategoryListModel implements CategoryListContract.Model {
 
@@ -25,27 +21,38 @@ public class CategoryListModel implements CategoryListContract.Model {
     repository = CatalogRepository.getInstance(
         activity.get().getApplicationContext()
     );
-    repository.loadCatalogFromJSON(loadJSONFromAsset());
+
+    //repository.loadCatalogFromJSON(loadJSONFromAsset());
   }
+
+//  @Override
+//  public List<CategoryItem> fetchCategoryListData() {
+//    Log.e(TAG, "fetchCategoryListData()");
+//
+//    /*
+//    List<CategoryItem> items =
+//        repository.loadCatalogFromJSON(loadJSONFromAsset());
+//    Log.e(TAG, "categories: " + items);
+//
+//    for(CategoryItem item: items){
+//      Log.e(TAG, "category: " + item);
+//      Log.e(TAG, "products: " + item.items);
+//    }
+//    */
+//
+//    return repository.getCategoryList();
+//  }
+
 
   @Override
-  public List<CategoryItem> fetchCategoryListData() {
+  public void fetchCategoryListData(
+      CatalogRepository.GetCategoryListCallback callback) {
+
     Log.e(TAG, "fetchCategoryListData()");
-
-    /*
-    List<CategoryItem> items =
-        repository.loadCatalogFromJSON(loadJSONFromAsset());
-    Log.e(TAG, "categories: " + items);
-
-    for(CategoryItem item: items){
-      Log.e(TAG, "category: " + item);
-      Log.e(TAG, "products: " + item.items);
-    }
-    */
-
-    return repository.getCategoryList();
+    repository.getCategoryList(callback);
   }
 
+  /*
   private String loadJSONFromAsset() {
     Log.e(TAG, "loadJSONFromAsset()");
 
@@ -66,4 +73,6 @@ public class CategoryListModel implements CategoryListContract.Model {
 
     return json;
   }
+  */
+
 }

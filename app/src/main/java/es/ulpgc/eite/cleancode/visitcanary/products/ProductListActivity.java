@@ -49,25 +49,32 @@ public class ProductListActivity
   }
 
   @Override
-  public void displayProductListData(ProductListViewModel viewModel) {
+  public void displayProductListData(final ProductListViewModel viewModel) {
     Log.e(TAG, "displayProductListData()");
 
-    // deal with the data
-    CategoryItem category = viewModel.category;
-    if (actionBar != null) {
-      actionBar.setTitle(category.content);
-    }
+    runOnUiThread(new Runnable() {
 
-    recyclerView.setAdapter(
-        new ProductListAdapter(viewModel.products, new View.OnClickListener() {
+      @Override
+      public void run() {
 
-          @Override
-          public void onClick(View view) {
-            ProductItem item = (ProductItem) view.getTag();
-            presenter.selectProductListData(item);
-          }
-        })
-    );
+        // deal with the data
+        CategoryItem category = viewModel.category;
+        if (actionBar != null) {
+          actionBar.setTitle(category.content);
+        }
+
+        recyclerView.setAdapter(new ProductListAdapter(
+            viewModel.products, new View.OnClickListener() {
+
+              @Override
+              public void onClick(View view) {
+                ProductItem item = (ProductItem) view.getTag();
+                presenter.selectProductListData(item);
+              }
+            })
+        );
+      }
+    });
   }
 
   @Override

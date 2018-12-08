@@ -1,7 +1,6 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
-import java.util.List;
-
+import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 
 interface CategoryListContract {
@@ -16,6 +15,8 @@ interface CategoryListContract {
   }
 
   interface Model {
-    List<CategoryItem> fetchCategoryListData();
+    //List<CategoryItem> fetchCategoryListData();
+    void fetchCategoryListData(
+        CatalogRepository.GetCategoryListCallback callback);
   }
 }

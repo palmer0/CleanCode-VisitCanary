@@ -1,7 +1,9 @@
 package es.ulpgc.eite.cleancode.visitcanary.products;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
+import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
 
@@ -27,9 +29,22 @@ public class ProductListPresenter implements ProductListContract.Presenter {
     }
 
     // call the model
+    model.fetchProductListData(viewModel.category,
+        new CatalogRepository.GetProductListCallback() {
+
+      @Override
+      public void setProductList(List<ProductItem> products) {
+        viewModel.products = products;
+
+        view.get().displayProductListData(viewModel);
+      }
+    });
+
+    /*
     viewModel.products = model.fetchProductListData(viewModel.category);
 
     view.get().displayProductListData(viewModel);
+    */
 
   }
 

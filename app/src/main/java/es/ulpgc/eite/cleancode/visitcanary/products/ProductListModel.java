@@ -3,11 +3,9 @@ package es.ulpgc.eite.cleancode.visitcanary.products;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
-import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
 
 public class ProductListModel implements ProductListContract.Model {
 
@@ -27,8 +25,19 @@ public class ProductListModel implements ProductListContract.Model {
 
 
   @Override
+  public void fetchProductListData(
+      CategoryItem category, CatalogRepository.GetProductListCallback callback) {
+
+    Log.e(TAG, "fetchProductListData()");
+    repository.getProductList(category.id, callback);
+  }
+
+  /*
+  @Override
   public List<ProductItem> fetchProductListData(CategoryItem category) {
     Log.e(TAG, "fetchProductListData()");
     return repository.getProductList(category.id);
   }
+  */
+
 }

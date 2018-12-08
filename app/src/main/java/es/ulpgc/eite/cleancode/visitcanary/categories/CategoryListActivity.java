@@ -46,20 +46,27 @@ public class CategoryListActivity
   }
 
   @Override
-  public void displayCategoryListData(CategoryListViewModel viewModel) {
+  public void displayCategoryListData(final CategoryListViewModel viewModel) {
     Log.e(TAG, "displayCategoryListData()");
 
-    // deal with the data
-    recyclerView.setAdapter(
-        new CategoryListAdapter(viewModel.categories, new View.OnClickListener() {
+    runOnUiThread(new Runnable() {
 
-          @Override
-          public void onClick(View view) {
-            CategoryItem item = (CategoryItem) view.getTag();
-            presenter.selectCategoryListData(item);
-          }
-        })
-    );
+      @Override
+      public void run() {
+        // deal with the data
+        recyclerView.setAdapter(new CategoryListAdapter(
+            viewModel.categories, new View.OnClickListener() {
+
+              @Override
+              public void onClick(View view) {
+                CategoryItem item = (CategoryItem) view.getTag();
+                presenter.selectCategoryListData(item);
+              }
+            })
+        );
+      }
+    });
+
 
   }
 
