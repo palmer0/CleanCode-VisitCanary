@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import es.ulpgc.eite.cleancode.visitcanary.R;
-import es.ulpgc.eite.cleancode.visitcanary.data.CatalogItem;
+import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
 
 
@@ -53,7 +53,7 @@ public class ProductListActivity
     Log.e(TAG, "displayProductListData()");
 
     // deal with the data
-    CatalogItem category = viewModel.category;
+    CategoryItem category = viewModel.category;
     if (actionBar != null) {
       actionBar.setTitle(category.content);
     }

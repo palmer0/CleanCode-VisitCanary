@@ -1,8 +1,8 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
-import java.lang.ref.WeakReference;
-
 import android.arch.lifecycle.ViewModelProviders;
+
+import java.lang.ref.WeakReference;
 
 // include this library dependency in build.gradle file
 // implementation 'android.arch.lifecycle:extensions:1.1.1'

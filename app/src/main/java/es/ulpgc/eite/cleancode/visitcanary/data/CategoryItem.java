@@ -1,27 +1,55 @@
 package es.ulpgc.eite.cleancode.visitcanary.data;
 
 
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CategoryItem extends CatalogItem {
+@Entity(tableName = "categories")
+public class CategoryItem {
 
-  public final String details;
+  @PrimaryKey
+  public int id;
 
+  public String content;
+  public String details;
+
+  @Ignore
   @SerializedName("products")
-  public final List<ProductItem> items;
+  public List<ProductItem> items;
+
+  /*
+  public CategoryItem() {
+
+  }
+
+  public CategoryItem(
+      int id, String content, String details, List<ProductItem> items) {
+    this.id = id;
+    this.content = content;
+    this.details = details;
+    this.items = items;
+  }
+
 
   public CategoryItem(int id, String content, String details) {
-    super(id, content);
+    this.id = id;
+    this.content = content;
     this.details = details;
     items = new ArrayList<>();
   }
+  */
+
 
   @Override
   public String toString() {
-    return super.toString();
+    return content;
   }
 }

@@ -11,6 +11,6 @@ interface ProductDetailContract {
   }
 
   interface Model {
-    //CatalogItem fetchProductDetailData();
+    //ProductItem fetchProductDetailData();
   }
 }

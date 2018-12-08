@@ -19,7 +19,10 @@ public class ProductListModel implements ProductListContract.Model {
 
   public ProductListModel(WeakReference<ProductListActivity> activity) {
     this.activity = activity;
-    repository = CatalogRepository.getInstance();
+    //repository = CatalogRepository.getInstance();
+    repository = CatalogRepository.getInstance(
+        activity.get().getApplicationContext()
+    );
   }
 
 

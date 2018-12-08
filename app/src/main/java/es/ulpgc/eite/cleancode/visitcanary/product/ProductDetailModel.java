@@ -14,7 +14,7 @@ public class ProductDetailModel implements ProductDetailContract.Model {
 
   /*
   @Override
-  public CatalogItem fetchProductDetailData() {
+  public ProductItem fetchProductDetailData() {
     // Log.e(TAG, "fetchProductDetailData()");
     return null;
   }

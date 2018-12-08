@@ -26,7 +26,7 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
     /*
     // call the model
-    CatalogItem item = model.fetchProductDetailData();
+    ProductItem item = model.fetchProductDetailData();
     viewModel.item = item;
     */
 

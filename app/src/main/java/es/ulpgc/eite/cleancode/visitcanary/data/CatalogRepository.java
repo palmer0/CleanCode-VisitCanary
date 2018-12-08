@@ -1,5 +1,9 @@
 package es.ulpgc.eite.cleancode.visitcanary.data;
 
+import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,15 +15,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import es.ulpgc.eite.cleancode.visitcanary.database.CatalogDatabase;
+import es.ulpgc.eite.cleancode.visitcanary.database.CategoryDao;
+import es.ulpgc.eite.cleancode.visitcanary.database.ProductDao;
+
 
 public class CatalogRepository {
 
   private static CatalogRepository INSTANCE;
 
+  private final CategoryDao categoryDao;
+  private  final ProductDao productDao;
+  //private CatalogDatabase database;
+
   //private final List<CategoryItem> itemList = new ArrayList<>();
   private List<CategoryItem> itemList;
   private final int COUNT = 20;
 
+  /*
   public static CatalogRepository getInstance() {
     if(INSTANCE == null){
       INSTANCE = new CatalogRepository();
@@ -27,6 +40,25 @@ public class CatalogRepository {
 
     return INSTANCE;
   }
+  */
+
+  public static CatalogRepository getInstance(Context context) {
+    if(INSTANCE == null){
+      INSTANCE = new CatalogRepository(context);
+    }
+
+    return INSTANCE;
+  }
+
+  private CatalogRepository(Context context) {
+    CatalogDatabase database = Room.databaseBuilder(
+        context, CatalogDatabase.class, "catalog.db"
+    ).build();
+
+    categoryDao = database.categoryDao();
+    productDao = database.productDao();
+  }
+
 
   /*
   private CatalogRepository() {
@@ -44,12 +76,29 @@ public class CatalogRepository {
     try {
 
       JSONObject jsonObject = new JSONObject(json);
-
       JSONArray jsonArray = jsonObject.getJSONArray("categories");
+
       if (jsonArray.length() > 0) {
         itemList = Arrays.asList(
             gson.fromJson(jsonArray.toString(), CategoryItem[].class)
         );
+
+        AsyncTask.execute(new Runnable() {
+
+          @Override
+          public void run() {
+            for (CategoryItem category: itemList) {
+              categoryDao.insertCategory(category);
+            }
+
+            for (CategoryItem category: itemList) {
+              for (ProductItem product: category.items) {
+                product.categoryId = category.id;
+                productDao.insertProduct(product);
+              }
+            }
+          }
+        });
 
       }
 
@@ -103,10 +152,12 @@ public class CatalogRepository {
 
 
   public List<CategoryItem> getCategoryList() {
-    return itemList;
+    //return itemList;
+    return categoryDao.loadCategories();
   }
 
 
+  /*
   private void addCategory(CategoryItem item) {
     itemList.add(item);
   }
@@ -165,5 +216,6 @@ public class CatalogRepository {
 
     return builder.toString();
   }
+  */
 
 }

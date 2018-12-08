@@ -20,7 +20,11 @@ public class CategoryListModel implements CategoryListContract.Model {
 
   public CategoryListModel(WeakReference<CategoryListActivity> activity) {
     this.activity = activity;
-    repository = CatalogRepository.getInstance();
+
+    //repository = CatalogRepository.getInstance();
+    repository = CatalogRepository.getInstance(
+        activity.get().getApplicationContext()
+    );
     repository.loadCatalogFromJSON(loadJSONFromAsset());
   }
 
