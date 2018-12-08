@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
-import es.ulpgc.eite.cleancode.visitcanary.categories.CategoryListModel;
 import es.ulpgc.eite.cleancode.visitcanary.database.CatalogDatabase;
 import es.ulpgc.eite.cleancode.visitcanary.database.CategoryDao;
 import es.ulpgc.eite.cleancode.visitcanary.database.ProductDao;
@@ -25,7 +24,21 @@ import es.ulpgc.eite.cleancode.visitcanary.database.ProductDao;
 
 public class CatalogRepository {
 
-  public static String TAG = CategoryListModel.class.getSimpleName();
+  public static String TAG = CatalogRepository.class.getSimpleName();
+
+  public interface FetchCatalogDataCallback {
+    void onCatalogDataFetched(boolean error);
+  }
+
+  /*
+  public interface FetchCatalogDataCallback {
+    void onCatalogDataFetched();
+  }
+
+  public interface ClearCatalogDataCallback {
+    void onCatalogDataCleared();
+  }
+  */
 
   public interface GetProductListCallback {
     void setProductList(List<ProductItem> products);
@@ -59,8 +72,8 @@ public class CatalogRepository {
   //private final int COUNT = 20;
 
   private Context appContext;
-  private boolean catalogLoading;
-  private boolean catalogLoaded;
+  //private boolean catalogLoading;
+  //private boolean catalogLoaded;
 
   /*
   public static CatalogRepository getInstance() {
@@ -233,7 +246,7 @@ public class CatalogRepository {
   }
 
   private String loadJSONFromAsset() {
-    Log.e(TAG, "loadJSONFromAsset()");
+    //Log.e(TAG, "loadJSONFromAsset()");
 
     String json = null;
 
@@ -276,6 +289,8 @@ public class CatalogRepository {
   }
   */
 
+
+  /*
   private void checkCatalogData() {
     if(catalogLoaded) {
       return;
@@ -292,6 +307,71 @@ public class CatalogRepository {
       catalogLoading = false;
     }
   }
+  */
+
+
+  public void loadCatalog(
+      final boolean clearFirst, final FetchCatalogDataCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(clearFirst) {
+          database.clearAllTables();
+        }
+
+        boolean error = false;
+        if(getCategoryDao().loadCategories().size() == 0 ) {
+          error = !loadCatalogFromJSON(loadJSONFromAsset());
+        }
+
+        if(callback != null) {
+          callback.onCatalogDataFetched(error);
+        }
+
+        /*
+        if(callback != null && loadCatalogFromJSON(loadJSONFromAsset())) {
+          callback.onCatalogDataFetched();
+        }
+        */
+
+      }
+    });
+
+  }
+
+  /*
+  public void loadCatalog(final FetchCatalogDataCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        if(callback != null && loadCatalogFromJSON(loadJSONFromAsset())) {
+          callback.onCatalogDataFetched();
+        }
+      }
+    });
+
+  }
+
+  public void clearCatalog(final ClearCatalogDataCallback callback) {
+
+    AsyncTask.execute(new Runnable() {
+
+      @Override
+      public void run() {
+        database.clearAllTables();
+
+        if(callback != null) {
+          callback.onCatalogDataCleared();
+        }
+      }
+    });
+
+  }
+  */
 
   public void getProductList(
       final int categoryId, final GetProductListCallback callback) {
@@ -300,7 +380,7 @@ public class CatalogRepository {
 
       @Override
       public void run() {
-        checkCatalogData();
+        //checkCatalogData();
 
         if(callback != null) {
           //callback.setProductList(productDao.loadProducts(categoryId));
@@ -318,7 +398,7 @@ public class CatalogRepository {
 
       @Override
       public void run() {
-        checkCatalogData();
+        //checkCatalogData();
 
         if(callback != null) {
           //callback.setProduct(productDao.loadProduct(id));
@@ -334,7 +414,7 @@ public class CatalogRepository {
 
       @Override
       public void run() {
-        checkCatalogData();
+        //checkCatalogData();
 
         if(callback != null) {
           //callback.setCategory(categoryDao.loadCategory(id));
@@ -350,7 +430,7 @@ public class CatalogRepository {
 
       @Override
       public void run() {
-        checkCatalogData();
+        //checkCatalogData();
 
         if(callback != null) {
           //callback.setCategoryList(categoryDao.loadCategories());

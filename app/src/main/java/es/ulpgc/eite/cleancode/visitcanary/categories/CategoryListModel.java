@@ -46,10 +46,39 @@ public class CategoryListModel implements CategoryListContract.Model {
 
   @Override
   public void fetchCategoryListData(
-      CatalogRepository.GetCategoryListCallback callback) {
+      final CatalogRepository.GetCategoryListCallback callback) {
 
     Log.e(TAG, "fetchCategoryListData()");
-    repository.getCategoryList(callback);
+
+    //repository.getCategoryList(callback);
+
+    repository.loadCatalog(
+        true, new CatalogRepository.FetchCatalogDataCallback() {
+
+      @Override
+      public void onCatalogDataFetched(boolean error) {
+        if(!error) {
+          repository.getCategoryList(callback);
+        }
+      }
+    });
+
+    /*
+    repository.clearCatalog(new CatalogRepository.ClearCatalogDataCallback() {
+
+      @Override
+      public void onCatalogDataCleared() {
+        repository.loadCatalog(new CatalogRepository.FetchCatalogDataCallback() {
+
+          @Override
+          public void onCatalogDataFetched() {
+            repository.getCategoryList(callback);
+          }
+        });
+      }
+    });
+    */
+
   }
 
   /*
