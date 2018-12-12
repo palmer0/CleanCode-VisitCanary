@@ -11,10 +11,34 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
 
   public static String TAG = CategoryListPresenter.class.getSimpleName();
 
+  /*
   public WeakReference<CategoryListContract.View> view;
   public CategoryListViewModel viewModel;
   public CategoryListContract.Model model;
   public CategoryListRouter router;
+  */
+
+  private WeakReference<CategoryListContract.View> view;
+  private CategoryListViewModel viewModel;
+  private CategoryListContract.Model model;
+  private CategoryListContract.Router router;
+
+  public CategoryListPresenter(
+      CategoryListViewModel viewModel, CategoryListContract.Router router) {
+
+    this.viewModel = viewModel;
+    this.router = router;
+  }
+
+  @Override
+  public void injectView(WeakReference<CategoryListContract.View> view) {
+    this.view = view;
+  }
+
+  @Override
+  public void injectModel(CategoryListContract.Model model) {
+    this.model = model;
+  }
 
   @Override
   public void fetchCategoryListData() {

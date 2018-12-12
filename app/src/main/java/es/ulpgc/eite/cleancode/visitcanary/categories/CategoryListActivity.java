@@ -39,10 +39,15 @@ public class CategoryListActivity
     recyclerView = findViewById(R.id.category_list);
 
     // do the setup
-    CategoryListConfigurator.INSTANCE.configure(this);
+    CategoryListScreen.configure(this);
 
     // do some work
     presenter.fetchCategoryListData();
+  }
+
+  @Override
+  public void injectPresenter(CategoryListContract.Presenter presenter) {
+    this.presenter = presenter;
   }
 
   @Override

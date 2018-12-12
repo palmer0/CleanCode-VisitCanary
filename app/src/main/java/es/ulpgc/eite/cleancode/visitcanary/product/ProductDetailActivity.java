@@ -48,10 +48,15 @@ public class ProductDetailActivity
     //appBarLayout = findViewById(R.id.toolbar_layout);
 
     // do the setup
-    ProductDetailConfigurator.INSTANCE.configure(this);
+    ProductDetailScreen.configure(this);
 
     // do some work
     presenter.fetchProductDetailData();
+  }
+
+  @Override
+  public void injectPresenter(ProductDetailContract.Presenter presenter) {
+    this.presenter = presenter;
   }
 
   @Override

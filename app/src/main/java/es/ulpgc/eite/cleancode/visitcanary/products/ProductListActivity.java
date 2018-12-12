@@ -42,10 +42,15 @@ public class ProductListActivity
     recyclerView = findViewById(R.id.product_list);
 
     // do the setup
-    ProductListConfigurator.INSTANCE.configure(this);
+    ProductListScreen.configure(this);
 
     // do some work
     presenter.fetchProductListData();
+  }
+
+  @Override
+  public void injectPresenter(ProductListContract.Presenter presenter) {
+    this.presenter = presenter;
   }
 
   @Override
