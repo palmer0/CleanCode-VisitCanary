@@ -9,16 +9,16 @@ public class ProductListScreen {
 
   public static void configure(ProductListContract.View view) {
 
-    WeakReference<FragmentActivity> activity =
+    WeakReference<FragmentActivity> context =
         new WeakReference<>((FragmentActivity) view);
 
     ProductListViewModel viewModel =
-        ViewModelProviders.of(activity.get()).get(ProductListViewModel.class);
+        ViewModelProviders.of(context.get()).get(ProductListViewModel.class);
 
-    ProductListContract.Router router = new ProductListRouter(activity);
+    ProductListContract.Router router = new ProductListRouter(context);
     ProductListContract.Presenter presenter =
         new ProductListPresenter(viewModel, router);
-    ProductListModel model = new ProductListModel(activity);
+    ProductListModel model = new ProductListModel(context);
     presenter.injectView(new WeakReference<>(view));
     presenter.injectModel(model);
     view.injectPresenter(presenter);

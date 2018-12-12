@@ -13,7 +13,7 @@ public class ProductListModel implements ProductListContract.Model {
   public static String TAG = ProductListModel.class.getSimpleName();
 
   //private WeakReference<ProductListActivity> activity;
-  private WeakReference<FragmentActivity> activity;
+  private WeakReference<FragmentActivity> context;
 
   private CatalogRepository repository;
 
@@ -27,12 +27,15 @@ public class ProductListModel implements ProductListContract.Model {
   }
   */
 
-  public ProductListModel(WeakReference<FragmentActivity> activity) {
-    this.activity = activity;
+  public ProductListModel(WeakReference<FragmentActivity> context) {
+    this.context = context;
+    repository = CatalogRepository.getInstance(context.get());
 
+    /*
     repository = CatalogRepository.getInstance(
-        activity.get().getApplicationContext()
+        context.get().getApplicationContext()
     );
+    */
   }
 
 

@@ -15,21 +15,21 @@ public class CategoryListRouter implements CategoryListContract.Router {
   public static String TAG = CategoryListRouter.class.getSimpleName();
 
   //public WeakReference<CategoryListActivity> activity;
-  private WeakReference<FragmentActivity> activity;
+  private WeakReference<FragmentActivity> context;
 
-  public CategoryListRouter(WeakReference<FragmentActivity> activity) {
-    this.activity = activity;
+  public CategoryListRouter(WeakReference<FragmentActivity> context) {
+    this.context = context;
   }
 
   @Override
   public void navigateToProductListScreen() {
-    Intent intent = new Intent(activity.get(), ProductListActivity.class);
-    activity.get().startActivity(intent);
+    Intent intent = new Intent(context.get(), ProductListActivity.class);
+    context.get().startActivity(intent);
   }
 
   @Override
   public void passDataToProductListScreen(CategoryItem item) {
-    CatalogMediator mediator = (CatalogMediator) activity.get().getApplication();
+    CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
     mediator.setCategory(item);
   }
 

@@ -70,7 +70,7 @@ public class CatalogRepository {
   private static CatalogRepository INSTANCE;
 
   private CatalogDatabase database;
-  private Context appContext;
+  private Context context;
 
 
   public static CatalogRepository getInstance(Context context) {
@@ -82,11 +82,11 @@ public class CatalogRepository {
   }
 
 
-  private CatalogRepository(Context appContext) {
-    this.appContext = appContext;
+  private CatalogRepository(Context context) {
+    this.context = context;
 
     database = Room.databaseBuilder(
-        appContext, CatalogDatabase.class, DB_FILE
+        context, CatalogDatabase.class, DB_FILE
     ).build();
 
   }
@@ -297,7 +297,7 @@ public class CatalogRepository {
 
     try {
 
-      InputStream is = appContext.getAssets().open(JSON_FILE);
+      InputStream is = context.getAssets().open(JSON_FILE);
       int size = is.available();
       byte[] buffer = new byte[size];
       is.read(buffer);

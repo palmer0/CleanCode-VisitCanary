@@ -20,6 +20,7 @@ public class ProductListAdapter
 
   public ProductListAdapter(
       List<ProductItem> items, View.OnClickListener listener) {
+
     itemList = items;
     clickListener = listener;
   }

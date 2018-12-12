@@ -14,27 +14,27 @@ public class ProductDetailRouter implements ProductDetailContract.Router {
   public static String TAG = ProductDetailRouter.class.getSimpleName();
 
   //public WeakReference<ProductDetailActivity> activity;
-  private WeakReference<FragmentActivity> activity;
+  private WeakReference<FragmentActivity> context;
 
-  public ProductDetailRouter(WeakReference<FragmentActivity> activity) {
-    this.activity = activity;
+  public ProductDetailRouter(WeakReference<FragmentActivity> context) {
+    this.context = context;
   }
 
   @Override
   public void navigateToNextScreen() {
-    Intent intent = new Intent(activity.get(), ProductDetailActivity.class);
-    activity.get().startActivity(intent);
+    Intent intent = new Intent(context.get(), ProductDetailActivity.class);
+    context.get().startActivity(intent);
   }
 
   @Override
   public void passDataToNextScreen(String data) {
-    //CatalogMediator mediator = (CatalogMediator) activity.get().getApplication();
+    //CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
     //mediator.setData(data);
   }
 
   @Override
   public ProductItem getDataFromProductListScreen() {
-    CatalogMediator mediator = (CatalogMediator) activity.get().getApplication();
+    CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
     ProductItem product = mediator.getProduct();
     return product;
   }

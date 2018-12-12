@@ -20,6 +20,7 @@ public class CategoryListAdapter
 
   public CategoryListAdapter(
       List<CategoryItem> items, View.OnClickListener listener) {
+
     itemList = items;
     clickListener = listener;
   }

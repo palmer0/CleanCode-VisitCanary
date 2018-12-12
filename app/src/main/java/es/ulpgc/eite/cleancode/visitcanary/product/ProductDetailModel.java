@@ -9,7 +9,7 @@ public class ProductDetailModel implements ProductDetailContract.Model {
   public static String TAG = ProductDetailModel.class.getSimpleName();
 
   //private WeakReference<ProductDetailActivity> activity;
-  private WeakReference<FragmentActivity> activity;
+  private WeakReference<FragmentActivity> context;
 
   /*
   public ProductDetailModel(WeakReference<ProductDetailActivity> activity) {
@@ -17,8 +17,8 @@ public class ProductDetailModel implements ProductDetailContract.Model {
   }
   */
 
-  public ProductDetailModel(WeakReference<FragmentActivity> activity) {
-    this.activity = activity;
+  public ProductDetailModel(WeakReference<FragmentActivity> context) {
+    this.context = context;
   }
 
   /*
