@@ -29,7 +29,7 @@ public class ProductListAdapter
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.category_list_content, parent, false);
+        .inflate(R.layout.product_list_content, parent, false);
     return new ViewHolder(view);
   }
 
