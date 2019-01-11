@@ -15,6 +15,7 @@ interface ProductDetailContract {
   interface Presenter {
     void injectView(WeakReference<View> view);
     void injectModel(Model model);
+    void injectRouter(Router router);
 
     void fetchProductDetailData();
   }

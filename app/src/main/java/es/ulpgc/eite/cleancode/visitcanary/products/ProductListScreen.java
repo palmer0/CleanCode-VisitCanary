@@ -12,15 +12,21 @@ public class ProductListScreen {
     WeakReference<FragmentActivity> context =
         new WeakReference<>((FragmentActivity) view);
 
+    /*
     ProductListViewModel viewModel =
         ViewModelProviders.of(context.get()).get(ProductListViewModel.class);
+    */
 
     ProductListContract.Router router = new ProductListRouter(context);
+    /*
     ProductListContract.Presenter presenter =
         new ProductListPresenter(viewModel, router);
+    */
+    ProductListContract.Presenter presenter = new ProductListPresenter(context);
     ProductListModel model = new ProductListModel(context);
     presenter.injectView(new WeakReference<>(view));
     presenter.injectModel(model);
+    presenter.injectRouter(router);
     view.injectPresenter(presenter);
 
   }

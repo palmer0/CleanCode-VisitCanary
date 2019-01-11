@@ -1,5 +1,8 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.v4.app.FragmentActivity;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -23,11 +26,19 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
   private CategoryListContract.Model model;
   private CategoryListContract.Router router;
 
+  /*
   public CategoryListPresenter(
       CategoryListViewModel viewModel, CategoryListContract.Router router) {
 
     this.viewModel = viewModel;
     this.router = router;
+  }
+  */
+
+  public CategoryListPresenter(WeakReference<FragmentActivity> context) {
+    viewModel = ViewModelProviders
+        .of(context.get())
+        .get(CategoryListViewModel.class);
   }
 
   @Override
@@ -38,6 +49,11 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
   @Override
   public void injectModel(CategoryListContract.Model model) {
     this.model = model;
+  }
+
+  @Override
+  public void injectRouter(CategoryListContract.Router router) {
+    this.router = router;
   }
 
   @Override

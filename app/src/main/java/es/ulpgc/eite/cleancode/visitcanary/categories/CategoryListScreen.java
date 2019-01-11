@@ -13,15 +13,21 @@ public class CategoryListScreen {
     WeakReference<FragmentActivity> context =
         new WeakReference<>((FragmentActivity) view);
 
+    /*
     CategoryListViewModel viewModel =
         ViewModelProviders.of(context.get()).get(CategoryListViewModel.class);
+    */
 
     CategoryListContract.Router router = new CategoryListRouter(context);
+    /*
     CategoryListContract.Presenter presenter =
         new CategoryListPresenter(viewModel, router);
+    */
+    CategoryListContract.Presenter presenter=new CategoryListPresenter(context);
     CategoryListModel model = new CategoryListModel(context);
     presenter.injectView(new WeakReference<>(view));
     presenter.injectModel(model);
+    presenter.injectRouter(router);
     view.injectPresenter(presenter);
 
   }
