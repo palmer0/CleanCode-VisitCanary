@@ -6,6 +6,7 @@ import android.util.Log;
 import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 public class CategoryListModel implements CategoryListContract.Model {
 
@@ -14,8 +15,8 @@ public class CategoryListModel implements CategoryListContract.Model {
   //private WeakReference<CategoryListActivity> activity;
   private WeakReference<FragmentActivity> context;
 
-  private CatalogRepository repository;
-
+  //private CatalogRepository repository;
+  private RepositoryContract repository;
 
   /*
   public CategoryListModel(WeakReference<CategoryListActivity> activity) {

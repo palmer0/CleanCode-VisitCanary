@@ -7,6 +7,7 @@ import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 public class ProductListModel implements ProductListContract.Model {
 
@@ -15,7 +16,8 @@ public class ProductListModel implements ProductListContract.Model {
   //private WeakReference<ProductListActivity> activity;
   private WeakReference<FragmentActivity> context;
 
-  private CatalogRepository repository;
+  //private CatalogRepository repository;
+  private RepositoryContract repository;
 
   /*
   public ProductListModel(WeakReference<ProductListActivity> activity) {

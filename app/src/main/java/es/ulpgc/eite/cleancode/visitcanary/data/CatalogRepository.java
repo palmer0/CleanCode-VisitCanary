@@ -22,7 +22,7 @@ import es.ulpgc.eite.cleancode.visitcanary.database.CategoryDao;
 import es.ulpgc.eite.cleancode.visitcanary.database.ProductDao;
 
 
-public class CatalogRepository {
+public class CatalogRepository implements RepositoryContract {
 
   public static String TAG = CatalogRepository.class.getSimpleName();
 
@@ -72,7 +72,7 @@ public class CatalogRepository {
   private CatalogDatabase database;
   private Context context;
 
-
+  /*
   public static CatalogRepository getInstance(Context context) {
     if(INSTANCE == null){
       INSTANCE = new CatalogRepository(context);
@@ -80,7 +80,15 @@ public class CatalogRepository {
 
     return INSTANCE;
   }
+  */
 
+  public static RepositoryContract getInstance(Context context) {
+    if(INSTANCE == null){
+      INSTANCE = new CatalogRepository(context);
+    }
+
+    return INSTANCE;
+  }
 
   private CatalogRepository(Context context) {
     this.context = context;
@@ -91,7 +99,7 @@ public class CatalogRepository {
 
   }
 
-
+  @Override
   public void loadCatalog(
       final boolean clearFirst, final FetchCatalogDataCallback callback) {
 
@@ -116,6 +124,7 @@ public class CatalogRepository {
 
   }
 
+  @Override
   public void getProductList(
       final CategoryItem category, final GetProductListCallback callback) {
 
@@ -123,6 +132,7 @@ public class CatalogRepository {
   }
 
 
+  @Override
   public void getProductList(
       final int categoryId, final GetProductListCallback callback) {
 
@@ -139,6 +149,7 @@ public class CatalogRepository {
   }
 
 
+  @Override
   public void getProduct(final int id, final GetProductCallback callback) {
 
     AsyncTask.execute(new Runnable() {
@@ -152,6 +163,7 @@ public class CatalogRepository {
     });
   }
 
+  @Override
   public void getCategory(final int id, final GetCategoryCallback callback) {
 
     AsyncTask.execute(new Runnable() {
@@ -166,6 +178,7 @@ public class CatalogRepository {
 
   }
 
+  @Override
   public void getCategoryList(final GetCategoryListCallback callback) {
     AsyncTask.execute(new Runnable() {
 
@@ -179,7 +192,7 @@ public class CatalogRepository {
 
   }
 
-
+  @Override
   public void deleteProduct(
       final ProductItem product, final DeleteProductCallback callback) {
 
@@ -195,6 +208,7 @@ public class CatalogRepository {
     });
   }
 
+  @Override
   public void updateProduct(
       final ProductItem product, final UpdateProductCallback callback) {
 
@@ -211,7 +225,7 @@ public class CatalogRepository {
   }
 
 
-
+  @Override
   public void deleteCategory(
       final CategoryItem category, final DeleteCategoryCallback callback) {
 
@@ -227,6 +241,7 @@ public class CatalogRepository {
     });
   }
 
+  @Override
   public void updateCategory(
       final CategoryItem category, final UpdateCategoryCallback callback) {
 
