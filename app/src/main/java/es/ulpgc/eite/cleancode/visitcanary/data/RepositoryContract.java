@@ -1,6 +1,45 @@
 package es.ulpgc.eite.cleancode.visitcanary.data;
 
+import java.util.List;
+
 public interface RepositoryContract {
+
+  interface FetchCatalogDataCallback {
+    void onCatalogDataFetched(boolean error);
+  }
+
+  interface GetProductListCallback {
+    void setProductList(List<ProductItem> products);
+  }
+
+  interface GetProductCallback {
+    void setProduct(ProductItem product);
+  }
+
+  interface GetCategoryListCallback {
+    void setCategoryList(List<CategoryItem> categories);
+  }
+
+  interface GetCategoryCallback {
+    void setCategory(CategoryItem category);
+  }
+
+  interface DeleteCategoryCallback {
+    void onCategoryDeleted();
+  }
+
+  interface UpdateCategoryCallback {
+    void onCategoryUpdated();
+  }
+
+  interface DeleteProductCallback {
+    void onProductDeleted();
+  }
+
+  interface UpdateProductCallback {
+    void onProductUpdated();
+  }
+
 
   void loadCatalog(
       boolean clearFirst, CatalogRepository.FetchCatalogDataCallback callback);

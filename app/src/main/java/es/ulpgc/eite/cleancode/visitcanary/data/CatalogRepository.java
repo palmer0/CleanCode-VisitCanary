@@ -26,10 +26,11 @@ public class CatalogRepository implements RepositoryContract {
 
   public static String TAG = CatalogRepository.class.getSimpleName();
 
+
+  /*
   public interface FetchCatalogDataCallback {
     void onCatalogDataFetched(boolean error);
   }
-
 
   public interface GetProductListCallback {
     void setProductList(List<ProductItem> products);
@@ -62,6 +63,7 @@ public class CatalogRepository implements RepositoryContract {
   public interface UpdateProductCallback {
     void onProductUpdated();
   }
+  */
 
   public static final String DB_FILE = "catalog.db";
   public static final String JSON_FILE = "catalog.json";
