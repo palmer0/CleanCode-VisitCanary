@@ -1,8 +1,5 @@
 package es.ulpgc.eite.cleancode.visitcanary.product;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.support.v4.app.FragmentActivity;
-
 import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
@@ -16,6 +13,10 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
   private ProductDetailViewModel viewModel;
   private ProductDetailContract.Model model;
   private ProductDetailContract.Router router;
+
+  public ProductDetailPresenter(ProductDetailState state) {
+    viewModel = state;
+  }
 
   /*
   public WeakReference<ProductDetailContract.View> view;
@@ -33,11 +34,11 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
   }
   */
 
-  public ProductDetailPresenter(WeakReference<FragmentActivity> context) {
-    viewModel = ViewModelProviders
-        .of(context.get())
-        .get(ProductDetailViewModel.class);
-  }
+//  public ProductDetailPresenter(WeakReference<FragmentActivity> context) {
+//    viewModel = ViewModelProviders
+//        .of(context.get())
+//        .get(ProductDetailViewModel.class);
+//  }
 
   @Override
   public void injectView(WeakReference<ProductDetailContract.View> view) {

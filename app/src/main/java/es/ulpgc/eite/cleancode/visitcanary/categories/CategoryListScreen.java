@@ -1,9 +1,12 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.support.v4.app.FragmentActivity;
 
 import java.lang.ref.WeakReference;
+
+import es.ulpgc.eite.cleancode.visitcanary.app.CatalogMediator;
+import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 
 public class CategoryListScreen {
@@ -13,18 +16,22 @@ public class CategoryListScreen {
     WeakReference<FragmentActivity> context =
         new WeakReference<>((FragmentActivity) view);
 
+    CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
+    CategoryListState state = mediator.getCategoryListState();
+    RepositoryContract repository = CatalogRepository.getInstance(context.get());
+
     /*
     CategoryListViewModel viewModel =
         ViewModelProviders.of(context.get()).get(CategoryListViewModel.class);
     */
 
-    CategoryListContract.Router router = new CategoryListRouter(context);
+    CategoryListContract.Router router = new CategoryListRouter(mediator);
     /*
     CategoryListContract.Presenter presenter =
         new CategoryListPresenter(viewModel, router);
     */
-    CategoryListContract.Presenter presenter=new CategoryListPresenter(context);
-    CategoryListModel model = new CategoryListModel(context);
+    CategoryListContract.Presenter presenter=new CategoryListPresenter(state);
+    CategoryListModel model = new CategoryListModel(repository);
     presenter.injectView(new WeakReference<>(view));
     presenter.injectModel(model);
     presenter.injectRouter(router);
@@ -32,27 +39,5 @@ public class CategoryListScreen {
 
   }
 
-  /*
-  public static void configure(CategoryListActivity activity) {
-
-    CategoryListRouter router = new CategoryListRouter();
-    router.activity = new WeakReference<>(activity);
-
-    CategoryListPresenter presenter = new CategoryListPresenter();
-    presenter.viewModel =
-        ViewModelProviders.of(activity).get(CategoryListViewModel.class);
-    presenter.view = new WeakReference<CategoryListContract.View>(activity);
-    presenter.router = router;
-
-    CategoryListModel model =
-        new CategoryListModel(new WeakReference<>(activity));
-    presenter.model = model;
-
-    if (activity.presenter == null) {
-      activity.presenter = presenter;
-    }
-
-  }
-  */
 
 }

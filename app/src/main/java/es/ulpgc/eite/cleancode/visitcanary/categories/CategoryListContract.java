@@ -32,7 +32,7 @@ interface CategoryListContract {
 
     void navigateToProductListScreen();
     void passDataToProductListScreen(CategoryItem item);
-    String getDataFromPreviousScreen();
+    //String getDataFromPreviousScreen();
   }
 
 }

@@ -1,9 +1,12 @@
 package es.ulpgc.eite.cleancode.visitcanary.products;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.support.v4.app.FragmentActivity;
 
 import java.lang.ref.WeakReference;
+
+import es.ulpgc.eite.cleancode.visitcanary.app.CatalogMediator;
+import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 public class ProductListScreen {
 
@@ -12,18 +15,22 @@ public class ProductListScreen {
     WeakReference<FragmentActivity> context =
         new WeakReference<>((FragmentActivity) view);
 
+    CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
+    ProductListState state = mediator.getProductListState();
+    RepositoryContract repository = CatalogRepository.getInstance(context.get());
+
     /*
     ProductListViewModel viewModel =
         ViewModelProviders.of(context.get()).get(ProductListViewModel.class);
     */
 
-    ProductListContract.Router router = new ProductListRouter(context);
+    ProductListContract.Router router = new ProductListRouter(mediator);
     /*
     ProductListContract.Presenter presenter =
         new ProductListPresenter(viewModel, router);
     */
-    ProductListContract.Presenter presenter = new ProductListPresenter(context);
-    ProductListModel model = new ProductListModel(context);
+    ProductListContract.Presenter presenter = new ProductListPresenter(state);
+    ProductListModel model = new ProductListModel(repository);
     presenter.injectView(new WeakReference<>(view));
     presenter.injectModel(model);
     presenter.injectRouter(router);

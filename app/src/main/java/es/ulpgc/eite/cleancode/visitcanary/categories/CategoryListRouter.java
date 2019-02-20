@@ -1,9 +1,7 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-
-import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.visitcanary.app.CatalogMediator;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
@@ -15,24 +13,27 @@ public class CategoryListRouter implements CategoryListContract.Router {
   public static String TAG = CategoryListRouter.class.getSimpleName();
 
   //public WeakReference<CategoryListActivity> activity;
-  private WeakReference<FragmentActivity> context;
+  private CatalogMediator mediator;
 
-  public CategoryListRouter(WeakReference<FragmentActivity> context) {
-    this.context = context;
+
+  public CategoryListRouter(CatalogMediator mediator) {
+    this.mediator = mediator;
   }
 
   @Override
   public void navigateToProductListScreen() {
-    Intent intent = new Intent(context.get(), ProductListActivity.class);
-    context.get().startActivity(intent);
+    Context context = mediator.getApplicationContext();
+    Intent intent = new Intent(context, ProductListActivity.class);
+    context.startActivity(intent);
   }
 
   @Override
   public void passDataToProductListScreen(CategoryItem item) {
-    CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
+    //CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
     mediator.setCategory(item);
   }
 
+  /*
   @Override
   public String getDataFromPreviousScreen() {
     //CatalogMediator mediator = (CatalogMediator) activity.get().getApplication();
@@ -41,4 +42,5 @@ public class CategoryListRouter implements CategoryListContract.Router {
     //return data;
     return null;
   }
+  */
 }

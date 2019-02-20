@@ -1,15 +1,11 @@
 package es.ulpgc.eite.cleancode.visitcanary.product;
 
-import android.support.v4.app.FragmentActivity;
-
-import java.lang.ref.WeakReference;
-
 public class ProductDetailModel implements ProductDetailContract.Model {
 
   public static String TAG = ProductDetailModel.class.getSimpleName();
 
   //private WeakReference<ProductDetailActivity> activity;
-  private WeakReference<FragmentActivity> context;
+  //private WeakReference<FragmentActivity> context;
 
   /*
   public ProductDetailModel(WeakReference<ProductDetailActivity> activity) {
@@ -17,8 +13,8 @@ public class ProductDetailModel implements ProductDetailContract.Model {
   }
   */
 
-  public ProductDetailModel(WeakReference<FragmentActivity> context) {
-    this.context = context;
+  public ProductDetailModel() {
+
   }
 
   /*

@@ -29,16 +29,20 @@ public class ProductListModel implements ProductListContract.Model {
   }
   */
 
-  public ProductListModel(WeakReference<FragmentActivity> context) {
-    this.context = context;
-    repository = CatalogRepository.getInstance(context.get());
-
-    /*
-    repository = CatalogRepository.getInstance(
-        context.get().getApplicationContext()
-    );
-    */
+  public ProductListModel(RepositoryContract repository){
+    this.repository = repository;
   }
+
+//  public ProductListModel(WeakReference<FragmentActivity> context) {
+//    this.context = context;
+//    repository = CatalogRepository.getInstance(context.get());
+//
+//    /*
+//    repository = CatalogRepository.getInstance(
+//        context.get().getApplicationContext()
+//    );
+//    */
+//  }
 
 
   @Override
