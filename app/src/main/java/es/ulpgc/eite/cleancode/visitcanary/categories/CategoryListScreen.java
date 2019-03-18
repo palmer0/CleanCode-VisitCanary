@@ -20,16 +20,7 @@ public class CategoryListScreen {
     CategoryListState state = mediator.getCategoryListState();
     RepositoryContract repository = CatalogRepository.getInstance(context.get());
 
-    /*
-    CategoryListViewModel viewModel =
-        ViewModelProviders.of(context.get()).get(CategoryListViewModel.class);
-    */
-
     CategoryListContract.Router router = new CategoryListRouter(mediator);
-    /*
-    CategoryListContract.Presenter presenter =
-        new CategoryListPresenter(viewModel, router);
-    */
     CategoryListContract.Presenter presenter=new CategoryListPresenter(state);
     CategoryListModel model = new CategoryListModel(repository);
     presenter.injectView(new WeakReference<>(view));

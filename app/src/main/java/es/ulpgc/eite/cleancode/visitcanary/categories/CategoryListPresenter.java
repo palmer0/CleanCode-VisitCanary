@@ -11,27 +11,10 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
 
   public static String TAG = CategoryListPresenter.class.getSimpleName();
 
-  /*
-  public WeakReference<CategoryListContract.View> view;
-  public CategoryListViewModel viewModel;
-  public CategoryListContract.Model model;
-  public CategoryListRouter router;
-  */
-
   private WeakReference<CategoryListContract.View> view;
   private CategoryListViewModel viewModel;
   private CategoryListContract.Model model;
   private CategoryListContract.Router router;
-
-  /*
-  public CategoryListPresenter(
-      CategoryListViewModel viewModel, CategoryListContract.Router router) {
-
-    this.viewModel = viewModel;
-    this.router = router;
-  }
-  */
-
 
   public CategoryListPresenter(CategoryListState state) {
     viewModel = state;
@@ -55,14 +38,6 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
   @Override
   public void fetchCategoryListData() {
     // Log.e(TAG, "fetchCategoryListData()");
-
-    /*
-    // set passed state
-    String data = router.getDataFromPreviousScreen();
-    if(data != null) {
-        viewModel.data = data;
-    }
-    */
 
     // call the model
     model.fetchCategoryListData(new CatalogRepository.GetCategoryListCallback() {

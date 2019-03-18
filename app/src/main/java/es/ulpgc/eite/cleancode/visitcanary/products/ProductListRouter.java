@@ -15,15 +15,6 @@ public class ProductListRouter implements ProductListContract.Router {
 
   private CatalogMediator mediator;
 
-  /*
-  //public WeakReference<ProductListActivity> activity;
-  private WeakReference<FragmentActivity> context;
-
-  public ProductListRouter(WeakReference<FragmentActivity> context) {
-    this.context = context;
-  }
-  */
-
   public ProductListRouter(CatalogMediator mediator) {
     this.mediator = mediator;
   }

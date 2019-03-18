@@ -21,7 +21,7 @@ interface ProductDetailContract {
   }
 
   interface Model {
-    //ProductItem fetchProductDetailData();
+
   }
 
   interface Router {

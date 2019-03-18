@@ -27,44 +27,6 @@ public class CatalogRepository implements RepositoryContract {
   public static String TAG = CatalogRepository.class.getSimpleName();
 
 
-  /*
-  public interface FetchCatalogDataCallback {
-    void onCatalogDataFetched(boolean error);
-  }
-
-  public interface GetProductListCallback {
-    void setProductList(List<ProductItem> products);
-  }
-
-  public interface GetProductCallback {
-    void setProduct(ProductItem product);
-  }
-
-  public interface GetCategoryListCallback {
-    void setCategoryList(List<CategoryItem> categories);
-  }
-
-  public interface GetCategoryCallback {
-    void setCategory(CategoryItem category);
-  }
-
-  public interface DeleteCategoryCallback {
-    void onCategoryDeleted();
-  }
-
-  public interface UpdateCategoryCallback {
-    void onCategoryUpdated();
-  }
-
-  public interface DeleteProductCallback {
-    void onProductDeleted();
-  }
-
-  public interface UpdateProductCallback {
-    void onProductUpdated();
-  }
-  */
-
   public static final String DB_FILE = "catalog.db";
   public static final String JSON_FILE = "catalog.json";
   public static final String JSON_ROOT = "categories";
@@ -74,15 +36,6 @@ public class CatalogRepository implements RepositoryContract {
   private CatalogDatabase database;
   private Context context;
 
-  /*
-  public static CatalogRepository getInstance(Context context) {
-    if(INSTANCE == null){
-      INSTANCE = new CatalogRepository(context);
-    }
-
-    return INSTANCE;
-  }
-  */
 
   public static RepositoryContract getInstance(Context context) {
     if(INSTANCE == null){

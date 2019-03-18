@@ -16,16 +16,7 @@ public class ProductDetailScreen {
     CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
     ProductDetailState state = mediator.getProductDetailState();
 
-    /*
-    ProductDetailViewModel viewModel =
-        ViewModelProviders.of(context.get()).get(ProductDetailViewModel.class);
-    */
-
     ProductDetailContract.Router router = new ProductDetailRouter(mediator);
-    /*
-    ProductDetailContract.Presenter presenter =
-        new ProductDetailPresenter(viewModel, router);
-    */
     ProductDetailContract.Presenter presenter=new ProductDetailPresenter(state);
     ProductDetailModel model = new ProductDetailModel();
     presenter.injectView(new WeakReference<>(view));
@@ -34,28 +25,5 @@ public class ProductDetailScreen {
     view.injectPresenter(presenter);
 
   }
-
-  /*
-  public static void configure(ProductDetailActivity activity) {
-
-    ProductDetailRouter router = new ProductDetailRouter();
-    router.activity = new WeakReference<>(activity);
-
-    ProductDetailPresenter presenter = new ProductDetailPresenter();
-    presenter.viewModel =
-        ViewModelProviders.of(activity).get(ProductDetailViewModel.class);
-    presenter.view = new WeakReference<ProductDetailContract.View>(activity);
-    presenter.router = router;
-
-    ProductDetailModel model =
-        new ProductDetailModel(new WeakReference<>(activity));
-    presenter.model = model;
-
-    if (activity.presenter == null) {
-      activity.presenter = presenter;
-    }
-
-  }
-  */
 
 }

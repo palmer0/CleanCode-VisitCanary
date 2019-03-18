@@ -19,16 +19,7 @@ public class ProductListScreen {
     ProductListState state = mediator.getProductListState();
     RepositoryContract repository = CatalogRepository.getInstance(context.get());
 
-    /*
-    ProductListViewModel viewModel =
-        ViewModelProviders.of(context.get()).get(ProductListViewModel.class);
-    */
-
     ProductListContract.Router router = new ProductListRouter(mediator);
-    /*
-    ProductListContract.Presenter presenter =
-        new ProductListPresenter(viewModel, router);
-    */
     ProductListContract.Presenter presenter = new ProductListPresenter(state);
     ProductListModel model = new ProductListModel(repository);
     presenter.injectView(new WeakReference<>(view));
@@ -38,26 +29,5 @@ public class ProductListScreen {
 
   }
 
-  /*
-  public static void configure(ProductListActivity activity) {
-
-    ProductListRouter router = new ProductListRouter();
-    router.activity = new WeakReference<>(activity);
-
-    ProductListPresenter presenter = new ProductListPresenter();
-    presenter.viewModel =
-        ViewModelProviders.of(activity).get(ProductListViewModel.class);
-    presenter.view = new WeakReference<ProductListContract.View>(activity);
-    presenter.router = router;
-
-    ProductListModel model = new ProductListModel(new WeakReference<>(activity));
-    presenter.model = model;
-
-    if (activity.presenter == null) {
-      activity.presenter = presenter;
-    }
-
-  }
-  */
 
 }

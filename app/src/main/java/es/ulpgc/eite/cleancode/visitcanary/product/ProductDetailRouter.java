@@ -10,31 +10,9 @@ public class ProductDetailRouter implements ProductDetailContract.Router {
 
   private CatalogMediator mediator;
 
-  /*
-  //public WeakReference<ProductDetailActivity> activity;
-  private WeakReference<FragmentActivity> context;
-
-  public ProductDetailRouter(WeakReference<FragmentActivity> context) {
-    this.context = context;
-  }
-  */
-
   public ProductDetailRouter(CatalogMediator mediator) {
     this.mediator = mediator;
   }
-
-//  @Override
-//  public void navigateToNextScreen() {
-//    Context context = mediator.getApplicationContext();
-//    Intent intent = new Intent(context, ProductDetailActivity.class);
-//    context.startActivity(intent);
-//  }
-//
-//  @Override
-//  public void passDataToNextScreen(String data) {
-//    //CatalogMediator mediator = (CatalogMediator) context.get().getApplication();
-//    //mediator.setData(data);
-//  }
 
   @Override
   public ProductItem getDataFromProductListScreen() {

@@ -30,7 +30,6 @@ public class CategoryListActivity
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    // Show the Up button in the action bar.
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setTitle(R.string.app_name);
@@ -58,6 +57,7 @@ public class CategoryListActivity
 
       @Override
       public void run() {
+
         // deal with the data
         recyclerView.setAdapter(new CategoryListAdapter(
             viewModel.categories, new View.OnClickListener() {
