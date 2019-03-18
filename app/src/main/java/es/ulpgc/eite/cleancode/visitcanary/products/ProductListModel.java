@@ -10,6 +10,7 @@ public class ProductListModel implements ProductListContract.Model {
 
   public static String TAG = ProductListModel.class.getSimpleName();
 
+
   private RepositoryContract repository;
 
   public ProductListModel(RepositoryContract repository){
