@@ -19,7 +19,6 @@ public class CategoryListActivity
 
   CategoryListContract.Presenter presenter;
 
-  //private RecyclerView recyclerView;
   private CategoryListAdapter listAdapter;
 
 
@@ -45,7 +44,6 @@ public class CategoryListActivity
       }
     });
 
-    //recyclerView = findViewById(R.id.category_list);
     RecyclerView recyclerView = findViewById(R.id.category_list);
     recyclerView.setAdapter(listAdapter);
 
@@ -72,20 +70,6 @@ public class CategoryListActivity
 
         // deal with the data
         listAdapter.setItems(viewModel.categories);
-
-        /*
-        recyclerView.setAdapter(new CategoryListAdapter(
-            viewModel.categories, new View.OnClickListener() {
-
-              @Override
-              public void onClick(View view) {
-                CategoryItem item = (CategoryItem) view.getTag();
-                presenter.selectCategoryListData(item);
-              }
-            })
-        );
-        */
-
       }
 
     });

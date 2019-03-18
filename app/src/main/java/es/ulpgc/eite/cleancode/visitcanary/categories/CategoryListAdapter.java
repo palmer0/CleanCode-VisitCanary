@@ -18,14 +18,6 @@ public class CategoryListAdapter
   private List<CategoryItem> itemList;
   private final View.OnClickListener clickListener;
 
-  /*
-  public CategoryListAdapter(
-      List<CategoryItem> items, View.OnClickListener listener) {
-
-    itemList = items;
-    clickListener = listener;
-  }
-  */
 
   public CategoryListAdapter(View.OnClickListener listener) {
 

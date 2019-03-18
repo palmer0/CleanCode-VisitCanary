@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.ulpgc.eite.cleancode.visitcanary.R;
-import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
 
 public class ProductListAdapter
@@ -19,14 +18,6 @@ public class ProductListAdapter
   private List<ProductItem> itemList;
   private final View.OnClickListener clickListener;
 
-  /*
-  public ProductListAdapter(
-      List<ProductItem> items, View.OnClickListener listener) {
-
-    itemList = items;
-    clickListener = listener;
-  }
-  */
 
   public ProductListAdapter(View.OnClickListener listener) {
 

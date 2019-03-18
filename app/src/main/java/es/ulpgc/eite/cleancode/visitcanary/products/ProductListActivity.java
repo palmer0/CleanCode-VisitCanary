@@ -22,7 +22,6 @@ public class ProductListActivity
 
   ProductListContract.Presenter presenter;
 
-  //private RecyclerView recyclerView;
   private ProductListAdapter listAdapter;
   private ActionBar actionBar;
 
@@ -48,7 +47,6 @@ public class ProductListActivity
       }
     });
 
-    //recyclerView = findViewById(R.id.product_list);
     RecyclerView recyclerView = findViewById(R.id.product_list);
     recyclerView.setAdapter(listAdapter);
 
@@ -80,20 +78,6 @@ public class ProductListActivity
         }
 
         listAdapter.setItems(viewModel.products);
-
-        /*
-        recyclerView.setAdapter(new ProductListAdapter(
-            viewModel.products, new View.OnClickListener() {
-
-              @Override
-              public void onClick(View view) {
-                ProductItem item = (ProductItem) view.getTag();
-                presenter.selectProductListData(item);
-              }
-            })
-        );
-        */
-
       }
     });
   }
