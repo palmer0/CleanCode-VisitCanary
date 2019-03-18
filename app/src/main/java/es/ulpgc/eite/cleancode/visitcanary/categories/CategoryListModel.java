@@ -18,12 +18,12 @@ public class CategoryListModel implements CategoryListContract.Model {
 
   @Override
   public void fetchCategoryListData(
-      final CatalogRepository.GetCategoryListCallback callback) {
+      final RepositoryContract.GetCategoryListCallback callback) {
 
     Log.e(TAG, "fetchCategoryListData()");
 
     repository.loadCatalog(
-        true, new CatalogRepository.FetchCatalogDataCallback() {
+        true, new RepositoryContract.FetchCatalogDataCallback() {
 
       @Override
       public void onCatalogDataFetched(boolean error) {

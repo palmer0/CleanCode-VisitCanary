@@ -5,6 +5,7 @@ import java.lang.ref.WeakReference;
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 interface ProductListContract {
 
@@ -26,7 +27,7 @@ interface ProductListContract {
   interface Model {
 
     void fetchProductListData(
-        CategoryItem category, CatalogRepository.GetProductListCallback callback);
+        CategoryItem category, RepositoryContract.GetProductListCallback callback);
   }
 
 

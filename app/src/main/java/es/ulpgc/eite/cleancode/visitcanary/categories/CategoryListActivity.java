@@ -55,11 +55,6 @@ public class CategoryListActivity
   }
 
   @Override
-  public void injectPresenter(CategoryListContract.Presenter presenter) {
-    this.presenter = presenter;
-  }
-
-  @Override
   public void displayCategoryListData(final CategoryListViewModel viewModel) {
     Log.e(TAG, "displayCategoryListData()");
 
@@ -74,6 +69,12 @@ public class CategoryListActivity
 
     });
 
+  }
+
+
+  @Override
+  public void injectPresenter(CategoryListContract.Presenter presenter) {
+    this.presenter = presenter;
   }
 
 }

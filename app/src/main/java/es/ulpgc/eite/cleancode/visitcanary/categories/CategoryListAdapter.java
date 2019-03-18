@@ -42,6 +42,11 @@ public class CategoryListAdapter
 
 
   @Override
+  public int getItemCount() {
+    return itemList.size();
+  }
+
+  @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext())
         .inflate(R.layout.category_list_content, parent, false);
@@ -50,15 +55,11 @@ public class CategoryListAdapter
 
   @Override
   public void onBindViewHolder(final ViewHolder holder, int position) {
-    holder.contentView.setText(itemList.get(position).content);
-
     holder.itemView.setTag(itemList.get(position));
     holder.itemView.setOnClickListener(clickListener);
-  }
 
-  @Override
-  public int getItemCount() {
-    return itemList.size();
+    holder.contentView.setText(itemList.get(position).content);
+
   }
 
   class ViewHolder extends RecyclerView.ViewHolder {

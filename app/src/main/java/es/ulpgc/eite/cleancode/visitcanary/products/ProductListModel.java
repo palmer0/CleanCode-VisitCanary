@@ -19,7 +19,7 @@ public class ProductListModel implements ProductListContract.Model {
 
   @Override
   public void fetchProductListData(
-      CategoryItem category, CatalogRepository.GetProductListCallback callback) {
+      CategoryItem category, RepositoryContract.GetProductListCallback callback) {
 
     Log.e(TAG, "fetchProductListData()");
     repository.getProductList(category, callback);

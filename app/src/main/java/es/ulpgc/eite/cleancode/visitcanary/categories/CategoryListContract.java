@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 interface CategoryListContract {
 
@@ -24,7 +25,7 @@ interface CategoryListContract {
 
   interface Model {
     void fetchCategoryListData(
-        CatalogRepository.GetCategoryListCallback callback);
+        RepositoryContract.GetCategoryListCallback callback);
   }
 
 

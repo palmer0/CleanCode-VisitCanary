@@ -6,6 +6,7 @@ import java.util.List;
 import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
+import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
 
 public class ProductListPresenter implements ProductListContract.Presenter {
@@ -49,7 +50,7 @@ public class ProductListPresenter implements ProductListContract.Presenter {
 
     // call the model
     model.fetchProductListData(viewModel.category,
-        new CatalogRepository.GetProductListCallback() {
+        new RepositoryContract.GetProductListCallback() {
 
       @Override
       public void setProductList(List<ProductItem> products) {
