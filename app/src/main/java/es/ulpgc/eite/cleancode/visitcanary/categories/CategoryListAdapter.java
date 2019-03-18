@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ulpgc.eite.cleancode.visitcanary.R;
@@ -14,15 +15,37 @@ import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 public class CategoryListAdapter
     extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
 
-  private final List<CategoryItem> itemList;
+  private List<CategoryItem> itemList;
   private final View.OnClickListener clickListener;
 
-
+  /*
   public CategoryListAdapter(
       List<CategoryItem> items, View.OnClickListener listener) {
 
     itemList = items;
     clickListener = listener;
+  }
+  */
+
+  public CategoryListAdapter(View.OnClickListener listener) {
+
+    itemList = new ArrayList();
+    clickListener = listener;
+  }
+
+  public void addItem(CategoryItem item){
+    itemList.add(item);
+    notifyDataSetChanged();
+  }
+
+  public void addItems(List<CategoryItem> items){
+    itemList.addAll(items);
+    notifyDataSetChanged();
+  }
+
+  public void setItems(List<CategoryItem> items){
+    itemList = items;
+    notifyDataSetChanged();
   }
 
 

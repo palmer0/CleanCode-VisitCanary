@@ -6,25 +6,49 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ulpgc.eite.cleancode.visitcanary.R;
+import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
 
 public class ProductListAdapter
     extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-  private final List<ProductItem> itemList;
+  private List<ProductItem> itemList;
   private final View.OnClickListener clickListener;
 
-
+  /*
   public ProductListAdapter(
       List<ProductItem> items, View.OnClickListener listener) {
 
     itemList = items;
     clickListener = listener;
   }
+  */
 
+  public ProductListAdapter(View.OnClickListener listener) {
+
+    itemList = new ArrayList();
+    clickListener = listener;
+  }
+
+
+  public void addItem(ProductItem item){
+    itemList.add(item);
+    notifyDataSetChanged();
+  }
+
+  public void addItems(List<ProductItem> items){
+    itemList.addAll(items);
+    notifyDataSetChanged();
+  }
+
+  public void setItems(List<ProductItem> items){
+    itemList = items;
+    notifyDataSetChanged();
+  }
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

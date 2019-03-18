@@ -19,7 +19,8 @@ public class CategoryListActivity
 
   CategoryListContract.Presenter presenter;
 
-  private RecyclerView recyclerView;
+  //private RecyclerView recyclerView;
+  private CategoryListAdapter listAdapter;
 
 
   @Override
@@ -35,7 +36,18 @@ public class CategoryListActivity
       actionBar.setTitle(R.string.app_name);
     }
 
-    recyclerView = findViewById(R.id.category_list);
+    listAdapter = new CategoryListAdapter(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View view) {
+        CategoryItem item = (CategoryItem) view.getTag();
+        presenter.selectCategoryListData(item);
+      }
+    });
+
+    //recyclerView = findViewById(R.id.category_list);
+    RecyclerView recyclerView = findViewById(R.id.category_list);
+    recyclerView.setAdapter(listAdapter);
 
     // do the setup
     CategoryListScreen.configure(this);
@@ -59,6 +71,9 @@ public class CategoryListActivity
       public void run() {
 
         // deal with the data
+        listAdapter.setItems(viewModel.categories);
+
+        /*
         recyclerView.setAdapter(new CategoryListAdapter(
             viewModel.categories, new View.OnClickListener() {
 
@@ -69,9 +84,11 @@ public class CategoryListActivity
               }
             })
         );
-      }
-    });
+        */
 
+      }
+
+    });
 
   }
 
