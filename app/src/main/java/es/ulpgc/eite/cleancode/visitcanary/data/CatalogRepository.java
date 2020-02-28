@@ -1,9 +1,10 @@
 package es.ulpgc.eite.cleancode.visitcanary.data;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import androidx.room.Room;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
