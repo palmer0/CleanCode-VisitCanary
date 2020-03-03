@@ -3,7 +3,6 @@ package es.ulpgc.eite.cleancode.visitcanary.categories;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import es.ulpgc.eite.cleancode.visitcanary.data.CatalogRepository;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.RepositoryContract;
 
@@ -13,12 +12,12 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
   public static String TAG = CategoryListPresenter.class.getSimpleName();
 
   private WeakReference<CategoryListContract.View> view;
-  private CategoryListViewModel viewModel;
+  private CategoryListState state;
   private CategoryListContract.Model model;
   private CategoryListContract.Router router;
 
   public CategoryListPresenter(CategoryListState state) {
-    viewModel = state;
+    this.state = state;
   }
 
   @Override
@@ -30,9 +29,9 @@ public class CategoryListPresenter implements CategoryListContract.Presenter {
 
       @Override
       public void setCategoryList(List<CategoryItem> categories) {
-        viewModel.categories = categories;
+        state.categories = categories;
 
-        view.get().displayCategoryListData(viewModel);
+        view.get().displayCategoryListData(state);
       }
     });
 
