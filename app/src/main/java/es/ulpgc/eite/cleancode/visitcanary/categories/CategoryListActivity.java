@@ -1,5 +1,6 @@
 package es.ulpgc.eite.cleancode.visitcanary.categories;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.ulpgc.eite.cleancode.visitcanary.R;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
+import es.ulpgc.eite.cleancode.visitcanary.products.ProductListActivity;
 
 
 public class CategoryListActivity
@@ -72,6 +74,12 @@ public class CategoryListActivity
 
   }
 
+  @Override
+  public void navigateToProductListScreen() {
+    Intent intent = new Intent(this, ProductListActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+  }
 
   @Override
   public void injectPresenter(CategoryListContract.Presenter presenter) {

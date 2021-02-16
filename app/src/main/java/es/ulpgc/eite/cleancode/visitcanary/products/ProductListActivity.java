@@ -1,5 +1,6 @@
 package es.ulpgc.eite.cleancode.visitcanary.products;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.ulpgc.eite.cleancode.visitcanary.R;
 import es.ulpgc.eite.cleancode.visitcanary.data.CategoryItem;
 import es.ulpgc.eite.cleancode.visitcanary.data.ProductItem;
+import es.ulpgc.eite.cleancode.visitcanary.product.ProductDetailActivity;
 
 
 public class ProductListActivity
@@ -56,6 +58,13 @@ public class ProductListActivity
 
     // do some work
     presenter.fetchProductListData();
+  }
+
+  @Override
+  public void navigateToProductDetailScreen() {
+    Intent intent = new Intent(this, ProductDetailActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
   }
 
   @Override
